@@ -89,9 +89,15 @@ func init() {
 }
 
 // AddFuncMap let user to register a func in the template.
-func AddFuncMap(key string, fn interface{}) error {
+func AddFuncMap(key string, fn interface{}) {
 	beegoTplFuncMap[key] = fn
-	return nil
+}
+
+// AddFuncsMap let user to batch register func in the template.
+func AddFuncsMap(funcs template.FuncMap) {
+	for key, fn := range funcs {
+		beegoTplFuncMap[key] = fn
+	}
 }
 
 type templatePreProcessor func(root, path string, funcs template.FuncMap) (*template.Template, error)
